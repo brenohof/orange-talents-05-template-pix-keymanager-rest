@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.zup";
+option java_outer_classname = "PixKeyManagerGrpc";
+
+package br.com.zup;
+
+import "google/protobuf/timestamp.proto";
+
+service PixKeyManagerGrpcService {
+  rpc novaChavePix (NovaChavePixRequestGRpc) returns (NovaChavePixResponseGRpc) {}
+}
+
+service RemovePixKeyGrpcService {
+  rpc removeChavePix (RemoveChavePixRequestGRpc) returns (RemoveChavePixResponseGRpc) {}
+}
+
+service ListaPixKeyGrpcService {
+  rpc listaChavePix (ListaChavePixRequest) returns (ListaChavePixResponse) {}
+}
+
+service ListarTodasPixKeyGrpcService {
+  rpc listaTodasChavePix (ListaTodasChavePixRequest) returns (ListaTodasChavePixResponse) {}
+}
+
+message ListaTodasChavePixRequest {
+  string cliente_id = 1;
+}
+
+message PixKeyResponse {
+  string pix_id = 1;
+  string cliente_id = 2;
+  TipoDaChave tipo_da_chave = 3;
+  string chave = 4;
+  TipoDaConta tipo_da_conta = 5;
+  google.protobuf.Timestamp criada_em = 6;
+}
+
+message ListaTodasChavePixResponse {
+  string cliente_id = 1;
+  repeated PixKeyResponse chaves = 2;
+}
+
+message ListaChavePixRequest {
+  message FiltroPorPixId {
+    string cliente_id = 1;
+    string pix_id = 2;
+  }
+
+  oneof filtro {
+    FiltroPorPixId pix_id = 1;
+    string chave = 2;
+  }
+}
+
+message ListaChavePixResponse {
+  string pix_id = 1;
+  string cliente_id = 2;
+  TipoDaChave tipo_da_chave = 3;
+  string chave = 4;
+  message Titular {
+    string nome = 1;
+    string cpf = 2;
+  }
+  Titular titular = 5;
+  message Conta {
+    string nome_da_institucao = 1;
+    string agencia = 2;
+    string numero = 3;
+    TipoDaConta tipo = 4;
+  }
+  Conta conta = 6;
+  google.protobuf.Timestamp criada_em = 7;
+}
+
+message RemoveChavePixRequestGRpc{
+  string pix_id = 1;
+  string cliente_id = 2;
+}
+
+message RemoveChavePixResponseGRpc {
+  string message = 1;
+}
+
+enum TipoDaChave {
+  UNKNOWN_TIPO_CHAVE = 0;
+  CPF = 1;
+  TELEFONE_CELULAR = 2;
+  EMAIL = 3;
+  CHAVE_ALEATORIA = 4;
+}
+
+enum TipoDaConta {
+  UNKNOWN_TIPO_CONTA = 0;
+  CONTA_CORRENTE = 1;
+  CONTA_POUPANCA = 2;
+}
+
+message NovaChavePixRequestGRpc {
+  string cliente_id = 1;
+  TipoDaChave tipo_da_chave = 2;
+  string chave = 3;
+  TipoDaConta tipo_da_conta = 4;
+}
+
+message NovaChavePixResponseGRpc {
+  string pix_id = 1;
+}
