@@ -5,6 +5,6 @@ micronaut:
 grpc:
   channels:
     pix-key:
-      addres: ${PIX_CLIENT_URL:`localhost:50051`}
+      address: ${PIX_CLIENT_URL:`localhost:50051`}
       plaintext: true
       max-retry-attempts: 5
