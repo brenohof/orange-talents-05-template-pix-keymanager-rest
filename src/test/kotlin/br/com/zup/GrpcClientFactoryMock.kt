@@ -16,7 +16,12 @@ class MockitoStubFactory {
     }
 
     @Singleton
-    fun deletePixKeyStubMock(): RemovePixKeyGrpcServiceGrpc.RemovePixKeyGrpcServiceBlockingStub? {
+    fun deletePixKeyStubMock(): RemovePixKeyGrpcServiceGrpc.RemovePixKeyGrpcServiceBlockingStub {
         return Mockito.mock(RemovePixKeyGrpcServiceGrpc.RemovePixKeyGrpcServiceBlockingStub::class.java)
+    }
+
+    @Singleton
+    fun detailPixKeyStubMock(): ListaPixKeyGrpcServiceGrpc.ListaPixKeyGrpcServiceBlockingStub {
+        return Mockito.mock(ListaPixKeyGrpcServiceGrpc.ListaPixKeyGrpcServiceBlockingStub::class.java)
     }
 }
