@@ -50,16 +50,6 @@ class CreatePixKeyControllerTest(
         assertTrue(response.header("Location")!!.contains(pixId))
     }
 
-    @Factory
-    @Replaces(factory = GrpcClientFactory::class)
-    internal class MockitoStubFactory {
-
-        @Singleton
-        fun stubMock(): PixKeyManagerGrpcServiceBlockingStub {
-            return Mockito.mock(PixKeyManagerGrpcServiceBlockingStub::class.java)
-        }
-    }
-
     private fun novaChavePixRequestGRpc(): NovaChavePixRequestGRpc {
         return newPixKeyRequest().toModel(clientId)
     }

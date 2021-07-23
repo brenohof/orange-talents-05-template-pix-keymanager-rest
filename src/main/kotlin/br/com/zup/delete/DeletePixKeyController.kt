@@ -23,6 +23,6 @@ class DeletePixKeyController(val deletePixKeyClient: RemovePixKeyGrpcServiceGrpc
 
         LOGGER.info("Removida com sucesso.")
 
-        return HttpResponse.noContent()
+        return HttpResponse.ok()
     }
 }

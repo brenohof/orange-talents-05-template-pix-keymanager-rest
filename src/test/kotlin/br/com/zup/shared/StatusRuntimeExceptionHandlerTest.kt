@@ -48,6 +48,18 @@ class StatusRuntimeExceptionHandlerTest {
     }
 
     @Test
+    internal fun `deve retornar 400 quando statusExcetion for FAILED PRECONDITION`() {
+        val message = "Alguma pre condição falhou, cliente não existe ou chave não existe no bcb."
+        val badRequestException = StatusRuntimeException(Status.FAILED_PRECONDITION.withDescription(message))
+
+        val response = StatusRuntimeExceptionHandler().handle(request, badRequestException)
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.status)
+        assertNotNull(response.body())
+        assertEquals(message, (response.body() as JsonError).message)
+    }
+
+    @Test
     internal fun `deve retornar 500 quando statusExcetion for desconhecida`() {
         val internalException = StatusRuntimeException(Status.UNKNOWN)
 
