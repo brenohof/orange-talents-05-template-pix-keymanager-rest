@@ -8,44 +8,34 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.exceptions.HttpStatusException
-import io.micronaut.http.uri.UriBuilder
 import io.micronaut.validation.Validated
 import org.slf4j.LoggerFactory
+import java.net.URI
+import java.util.*
 import javax.validation.Valid
 
 @Validated
-@Controller
-class CreatePixKeyController(val grpcClient: PixKeyManagerGrpcServiceGrpc.PixKeyManagerGrpcServiceBlockingStub) {
+@Controller("/api/v1/clients/{clientId}")
+class CreatePixKeyController(val createPixKeyClient: PixKeyManagerGrpcServiceGrpc.PixKeyManagerGrpcServiceBlockingStub) {
 
-    val logger = LoggerFactory.getLogger(this::class.java)
+    val LOGGER = LoggerFactory.getLogger(this::class.java)
 
-    @Post("/api/keys")
-    fun create(@Valid @Body request: NewPixKeyRequest): HttpResponse<Any> {
+    @Post("/pix")
+    fun create(
+        @Valid @Body request: NewPixKeyRequest,
+        @PathVariable clientId: UUID
+    ): HttpResponse<Any> {
+        val response = createPixKeyClient.novaChavePix(request.toModel(clientId))
 
-        var response: NovaChavePixResponseGRpc? = null
+        LOGGER.info("Registro nova chave pix bem sucedido $response")
 
-        try {
-            response = grpcClient.novaChavePix(request.toModel())
-        } catch (e: StatusRuntimeException) {
-            val statusCode = e.status.code
-            val description = e.status.description
-            if (statusCode == Status.Code.INVALID_ARGUMENT ||
-                statusCode == Status.Code.FAILED_PRECONDITION) {
-                throw HttpStatusException(HttpStatus.BAD_REQUEST, description)
-            }
+        return HttpResponse.created(location(clientId, response!!.pixId))
+    }
 
-            if (statusCode == Status.Code.ALREADY_EXISTS) {
-                throw HttpStatusException(HttpStatus.UNPROCESSABLE_ENTITY, description)
-            }
-        }
-
-        logger.info("Registro bem sucedido $response")
-
-        val uri = UriBuilder.of("/api/keys/{id}")
-            .expand(mutableMapOf(Pair("id", response?.pixId)))
-
-        return HttpResponse.created(uri)
+    private fun location(clientId: UUID, pixId: String): URI {
+        return HttpResponse.uri("/api/v1/clientes/$clientId/pix/$pixId")
     }
 }

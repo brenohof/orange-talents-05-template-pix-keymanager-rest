@@ -6,11 +6,8 @@ import io.micronaut.grpc.annotation.GrpcChannel
 import javax.inject.Singleton
 
 @Factory
-class GrpcClientFactory {
+class GrpcClientFactory(@GrpcChannel("keyManager") val channel: ManagedChannel) {
 
     @Singleton
-    fun pixKeyManagerClientStub(@GrpcChannel("pix-key") channel: ManagedChannel):
-            PixKeyManagerGrpcServiceGrpc.PixKeyManagerGrpcServiceBlockingStub {
-        return PixKeyManagerGrpcServiceGrpc.newBlockingStub(channel)
-    }
+    fun createPixKey() = PixKeyManagerGrpcServiceGrpc.newBlockingStub(channel)
 }

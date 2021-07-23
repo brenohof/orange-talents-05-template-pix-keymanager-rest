@@ -40,6 +40,7 @@ dependencies {
 
     testImplementation("io.micronaut:micronaut-http-client")
 
+    implementation("org.hibernate:hibernate-validator:6.1.6.Final")
 }
 
 
