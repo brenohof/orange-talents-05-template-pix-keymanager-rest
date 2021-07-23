@@ -1,5 +1,6 @@
 package br.com.zup.shared
 
+import br.com.zup.ListaPixKeyGrpcServiceGrpc
 import br.com.zup.PixKeyManagerGrpcServiceGrpc
 import br.com.zup.RemovePixKeyGrpcServiceGrpc
 import io.grpc.ManagedChannel
@@ -14,4 +15,6 @@ class GrpcClientFactory(@GrpcChannel("keyManager") val channel: ManagedChannel) 
     fun createPixKey() = PixKeyManagerGrpcServiceGrpc.newBlockingStub(channel)
     @Singleton
     fun deletePixKey() = RemovePixKeyGrpcServiceGrpc.newBlockingStub(channel)
+    @Singleton
+    fun detailPixKey() = ListaPixKeyGrpcServiceGrpc.newBlockingStub(channel)
 }
