@@ -32,7 +32,7 @@ class CreatePixKeyController(val createPixKeyClient: PixKeyManagerGrpcServiceGrp
 
         LOGGER.info("Registro nova chave pix bem sucedido $response")
 
-        return HttpResponse.created(location(clientId, response!!.pixId))
+        return HttpResponse.created(location(clientId, response.pixId))
     }
 
     private fun location(clientId: UUID, pixId: String): URI {

@@ -4,10 +4,8 @@ import br.com.zup.NovaChavePixRequestGRpc
 import br.com.zup.TipoDaChave
 import br.com.zup.TipoDaConta
 import io.micronaut.core.annotation.Introspected
-import io.micronaut.validation.validator.constraints.EmailValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator
 import java.util.*
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -56,10 +54,7 @@ enum class KeyType(val gRpcAttr: TipoDaChave) {
         override fun validate(keyValue: String?): Boolean {
             if (keyValue.isNullOrBlank()) return false
 
-            return EmailValidator().run {
-                initialize(null)
-                isValid(keyValue, null)
-            }
+            return keyValue.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+\$".toRegex())
         }
     }, RANDOM(TipoDaChave.CHAVE_ALEATORIA) {
         override fun validate(keyValue: String?) = keyValue.isNullOrEmpty()

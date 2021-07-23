@@ -1,4 +1,4 @@
-package br.com.zup
+package br.com.zup.shared
 
 import io.grpc.Status
 import io.grpc.StatusRuntimeException

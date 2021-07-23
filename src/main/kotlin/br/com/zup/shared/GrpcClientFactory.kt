@@ -1,5 +1,6 @@
-package br.com.zup
+package br.com.zup.shared
 
+import br.com.zup.PixKeyManagerGrpcServiceGrpc
 import io.grpc.ManagedChannel
 import io.micronaut.context.annotation.Factory
 import io.micronaut.grpc.annotation.GrpcChannel

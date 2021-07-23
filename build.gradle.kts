@@ -41,6 +41,17 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-client")
 
     implementation("org.hibernate:hibernate-validator:6.1.6.Final")
+
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java")
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.mockito:mockito-core:3.8.0")
+    testImplementation("io.micronaut.test:micronaut-test-junit5:2.3.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testRuntimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    testImplementation("org.mockito:mockito-inline:3.11.2")
+
 }
 
 
