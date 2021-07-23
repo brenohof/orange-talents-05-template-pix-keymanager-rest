@@ -17,6 +17,7 @@ class StatusRuntimeExceptionHandler: ExceptionHandler<StatusRuntimeException, Ht
         val (httpStatus, message) = when (statusCode) {
             Status.NOT_FOUND.code -> Pair(HttpStatus.NOT_FOUND, statusDescription)
             Status.INVALID_ARGUMENT.code -> Pair(HttpStatus.BAD_REQUEST, "Dados da requisição estão inválidos.")
+            Status.FAILED_PRECONDITION.code -> Pair(HttpStatus.BAD_REQUEST, statusDescription)
             Status.ALREADY_EXISTS.code -> Pair(HttpStatus.UNPROCESSABLE_ENTITY, statusDescription)
             else -> Pair(HttpStatus.INTERNAL_SERVER_ERROR, "Não foi possível completar a requisição.")
         }

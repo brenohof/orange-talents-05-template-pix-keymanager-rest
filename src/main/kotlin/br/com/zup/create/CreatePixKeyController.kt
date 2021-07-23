@@ -36,6 +36,6 @@ class CreatePixKeyController(val createPixKeyClient: PixKeyManagerGrpcServiceGrp
     }
 
     private fun location(clientId: UUID, pixId: String): URI {
-        return HttpResponse.uri("/api/v1/clientes/$clientId/pix/$pixId")
+        return HttpResponse.uri("/api/v1/clients/$clientId/pix/$pixId")
     }
 }
