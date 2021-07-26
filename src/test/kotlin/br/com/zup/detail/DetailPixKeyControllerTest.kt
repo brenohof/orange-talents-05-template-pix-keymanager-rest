@@ -55,7 +55,7 @@ class DetailPixKeyControllerTest(
 
     private fun listaChavePixResponse() = ListaChavePixResponse.newBuilder()
         .setPixId(pixId.toString())
-        .setClienteId(pixId.toString())
+        .setClienteId(clientId.toString())
         .setChave(UUID.randomUUID().toString())
         .setTipoDaChave(TipoDaChave.CHAVE_ALEATORIA)
         .setConta(

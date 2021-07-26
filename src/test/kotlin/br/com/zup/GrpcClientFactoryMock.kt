@@ -24,4 +24,9 @@ class MockitoStubFactory {
     fun detailPixKeyStubMock(): ListaPixKeyGrpcServiceGrpc.ListaPixKeyGrpcServiceBlockingStub {
         return Mockito.mock(ListaPixKeyGrpcServiceGrpc.ListaPixKeyGrpcServiceBlockingStub::class.java)
     }
+
+    @Singleton
+    fun listAllPixKeyStubMock(): ListarTodasPixKeyGrpcServiceGrpc.ListarTodasPixKeyGrpcServiceBlockingStub {
+        return Mockito.mock(ListarTodasPixKeyGrpcServiceGrpc.ListarTodasPixKeyGrpcServiceBlockingStub::class.java)
+    }
 }
