@@ -2,10 +2,9 @@ package br.com.zup.detail
 
 import br.com.zup.ListaChavePixRequest
 import br.com.zup.ListaChavePixRequest.FiltroPorPixId
-import br.com.zup.ListaChavePixResponse
 import br.com.zup.ListaPixKeyGrpcServiceGrpc
+import br.com.zup.shared.toModel
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
