@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: pixKeyManagerRest
+    name: ${APP_NAME:`keymanager-rest`}
 
 grpc:
   client:
