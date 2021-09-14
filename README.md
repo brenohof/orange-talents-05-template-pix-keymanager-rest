@@ -1,3 +1,5 @@
+API Rest para consumir o módulo Grpc da aplicação pix-keymanager, baseada no sistema de chave pix.
+
 ```(shell)
 mvn clean build
 ```
